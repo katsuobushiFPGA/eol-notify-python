@@ -1,0 +1,4 @@
+app/.env
+app/__pycache__
+*.log
+*.pid
