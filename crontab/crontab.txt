@@ -1,1 +1,1 @@
-*/5 * * * * cd /var/src/app; python app.py
+*/5 * * * * cd /var/src/app && /usr/local/bin/python app.py >> /var/log/cron_log 2>&1

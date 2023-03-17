@@ -22,9 +22,10 @@ RUN apt-get update \
 &&  apt-get install -y cron \
 &&  apt-get clean \
 &&  rm -rf /var/lib/apt/lists/*
-COPY ./crontab/crontab.txt /etc/cron.d/cron
+COPY --chown=root:root ./crontab/crontab.txt /etc/cron.d/cron
+RUN chmod 0644 /etc/cron.d/*
 RUN crontab /etc/cron.d/cron
-RUN chmod 0644 /etc/cron.d/cron && ln -sf /proc/1/fd/1 /var/log/cron.log
+RUN ln -s /dev/stdout /var/log/cron
 
 # python library
 RUN apt-get update \
@@ -39,6 +40,5 @@ RUN pip install requests
 RUN pip install pandas
 RUN pip install tabulate
 
-WORKDIR /var/src/app
 # CMD [ "tail", "-f", "/dev/null"]
 CMD ["/usr/bin/supervisord", "-c", "/etc/supervisor/supervisord.conf"]
