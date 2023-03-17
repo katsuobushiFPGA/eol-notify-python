@@ -1,14 +1,23 @@
 FROM python:3.11.2
 USER root
 
-RUN apt-get update
-RUN apt-get -y install locales && \
-    localedef -f UTF-8 -i ja_JP ja_JP.UTF-8
+# Language
+RUN apt-get update \
+&& apt-get -y install locales \
+&& localedef -f UTF-8 -i ja_JP ja_JP.UTF-8 \
+&&  apt-get clean \
+&&  rm -rf /var/lib/apt/lists/*
 ENV LANG ja_JP.UTF-8
 ENV LANGUAGE ja_JP:ja
 ENV LC_ALL ja_JP.UTF-8
-ENV TZ JST-9
 ENV TERM xterm
+
+# Locale
+RUN apt-get install -y --no-install-recommends tzdata && \
+    ln -sf /usr/share/zoneinfo/Asia/Tokyo /etc/localtime && \
+    apt-get clean && \
+    rm -rf /var/lib/apt/lists/*
+ENV TZ Asia/Tokyo
 
 # supervisor
 RUN apt-get update \
@@ -25,7 +34,6 @@ RUN apt-get update \
 COPY --chown=root:root ./crontab/crontab.txt /etc/cron.d/cron
 RUN chmod 0644 /etc/cron.d/*
 RUN crontab /etc/cron.d/cron
-RUN ln -s /dev/stdout /var/log/cron
 
 # python library
 RUN apt-get update \
