@@ -1,2 +1,2 @@
-0 7 * * * echo "Current date is `date`" > /var/src/app/cron.log 2>&1
+0 7 * * * echo "Current date is `date`" > /var/src/app/check.log 2>&1
 0 7 * * * cd /var/src/app && /usr/local/bin/python app.py notify_version >> /var/src/app/cron.log 2>&1
