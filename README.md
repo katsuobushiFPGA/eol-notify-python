@@ -40,7 +40,7 @@ NOTIFICATION_BEFORE_DEADLINE_DAYS='10 20 30 40 50'
 ## 使い方
 1. このリポジトリをcloneします。
 ```
-git clone
+git clone https://github.com/katsuobushiFPGA/eol-notify-python.git
 ```
 2. イメージをビルドし、立ち上げます。
 ```
