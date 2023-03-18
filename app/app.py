@@ -78,6 +78,7 @@ def notify_product_version_deadline_for_slack():
             if today >= notify_date:
                slack_notify = {
                   'product': product,
+                  'version': version,
                   'day': day,
                   'support_term': (deadline_date - datetime.now()).days
                 }
@@ -90,7 +91,7 @@ def create_notify_message(product_json, slack_notify):
     slack_text = '*****' + slack_notify["product"] +  '*****\n'
     slack_text += '【期限切れ】 ' + str(slack_notify["day"]) + ' 日前の通知です。\n'
     slack_text += '残りサポート期間:' + str(slack_notify["support_term"])  + '日です。\n'
-    slack_text += slack_notify["product"] + 'は EOLが' + product_json["eol"] + 'です。\n'
+    slack_text += slack_notify["product"] + slack_notify["version"] +  'は EOLが' + product_json["eol"] + 'です。\n'
     return slack_text
 
 if __name__ == "__main__":
