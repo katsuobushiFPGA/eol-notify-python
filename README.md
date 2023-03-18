@@ -48,7 +48,7 @@ docker compose up -d
 ```
 ## トラブルシューティング
 ※ `crontab.txt` は `LF` コードにすること。
-`CRLF` で 作成した場合は、下記のようなエラーが出てcronのjobが実行されない。 (実行される前に exitされる)
+`CRLF` で 作成した場合は、下記のようなログが出てcronのjobが実行されない。 (実行される前に exitされる)
 ```
 INFO reaped unknown pid 11 (exit status 0)
 ```
