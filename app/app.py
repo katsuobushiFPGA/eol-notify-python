@@ -8,13 +8,8 @@ import json
 WEB_HOOK_URL = config.WEB_HOOK_URL
 EOL_API_BASE_URL  = 'https://endoflife.date/api/'
 
-NOTIICATIPN_PRODUCT = ['php', 'mysql', 'Apache', 'AlmaLinux']
-NOTIFICATION_PRODUCT_VERSION = {
-    'php': '8.1',
-    'mysql': '8.0',
-    'Apache': '2.4',
-    'AlmaLinux': '8'
-}
+NOTIFICATION_PRODUCTS = config.NOTIFICATION_PRODUCTS
+NOTIFICATION_PRODUCTS_VERSION = config.NOTIFICATION_PRODUCTS_VERSION
 
 def sendSlack(text):
     headers = {
@@ -47,22 +42,21 @@ def jsonToMarkdownTable(data, v):
     return df.to_markdown(index=False,tablefmt='fancy_grid')
 
 def notifyProduct():
-    for product in NOTIICATIPN_PRODUCT:
+    for product in NOTIFICATION_PRODUCTS:
       res = endoflifeDate(product)
       if res != None:
         slackText = product + '   \n'
         slackText += jsonToMarkdownTable(res, None)
         print(slackText)
-#        sendSlack(slackText)
 
 def notifyProductVersion():
-    for product,version in NOTIFICATION_PRODUCT_VERSION.items():
-       res = endoflifeDate(product,version)
+    for product,version in NOTIFICATION_PRODUCTS_VERSION.items():
+       res = endoflifeDate(product, version)
        if res != None:
         slackText = product + '   \n'
         slackText += jsonToMarkdownTable(res, version)
         print(slackText)
-        sendSlack(slackText)
+#        sendSlack(slackText)
 
 if __name__ == "__main__":
    notifyProduct()

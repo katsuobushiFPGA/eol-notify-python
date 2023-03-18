@@ -37,7 +37,7 @@ RUN crontab /etc/cron.d/cron
 
 # python library
 RUN apt-get update \
-&& apt-get install -y vim less \
+&&  apt-get install -y vim less \
 &&  apt-get clean \
 &&  rm -rf /var/lib/apt/lists/*
 RUN pip install --upgrade pip
